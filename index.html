@@ -77,30 +77,46 @@
             container.appendChild(image);
         }
 
-        function displayNationalPark() {
-            let request = new XMLHttpRequest();
-            request.onreadystatechange = function(){
-                if(request.readyState == 4 && request.status == 200){
-                    console.log(request.responseText);
+        function getData(callback) {
+            const request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    callback(request);
                 }
             }
-            request.open("GET","data.json", true);
+            request.open("GET", "data.json", true);
             request.send();
+        }
 
-            //const nationalParkForm = document.getElementById('NationalParkForm');
+        function displayJSON(data) {
+            document.getElementById('jsonData').innerHTML = '<p>' + data.responseText + '</p>';
+        }
 
+        let i = 0;
+
+        function displayNationalPark(data) {
+            const nationalParks = JSON.parse(data.responseText);
+            if (i == nationalParks.length) {
+                i = 0;
+            }
+            let park = nationalParks[i];
+            let p = document.createElement('p');
+            p.innerHTML = 'Name: ' + park.name + ' National Park';
+            const container = document.getElementById('NationalParkForm');
+            container.innerHTML = '';
+            container.appendChild(p);
+            i++;
         }
 
     </script>
 </head>
 
 <body>
-    <button type="button" onclick="getJSONString()">Click to display JSON data</button>
+    <button type="button" onclick="getData(displayJSON)">Click to display JSON data</button>
     <div id="jsonData"></div>
-    <form id="NationalParkForm">
-        <button type="button" id="NationalParkButton" onclick="displayNationalPark()">Click to display a National
-            Park</button>
-    </form>
+    <button type="button" id="NationalParkButton" onclick="getData(displayNationalPark)">Click to display a National
+        Park</button>
+    <div id="NationalParkForm"></div>
 </body>
 
 </html>
