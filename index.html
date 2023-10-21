@@ -88,8 +88,19 @@
             request.send();
         }
 
+        let displayed = false;
         function displayJSON(data) {
-            document.getElementById('jsonData').innerHTML = '<p>' + data.responseText + '</p>';
+            let btn = document.getElementById('jsonBtn');
+            if(!displayed){
+                btn.innerHTML = "Click to hide JSON data";
+                document.getElementById('jsonData').innerHTML = '<p>' + data.responseText + '</p>';
+                displayed = true;
+            }
+            else {
+                btn.innerHTML = 'Click to display JSON data';
+                document.getElementById('jsonData').innerHTML = '';
+                displayed = false;
+            }
         }
 
         let i = 0;
@@ -155,7 +166,7 @@
 </head>
 
 <body>
-    <button type="button" onclick="getData(displayJSON)">Click to display JSON data</button>
+    <button type="button" id="jsonBtn" onclick="getData(displayJSON)">Click to display JSON data</button>
     <div id="jsonData"></div>
     <button type="button" id="NationalParkButton" onclick="getData(displayNationalPark)">Click to display a National
         Park</button>
