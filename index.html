@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab-8</title>
+    <title>Data Browser</title>
     <script>
         class NationalPark {
             name = '';
@@ -63,10 +63,11 @@
         parks.push(rockyMountain);
 
         function getJSONString() {
-            console.log(JSON.stringify(parks));
+            let x = JSON.stringify(parks);
+            document.getElementById('jsonData').innerHTML = '<p>' + x + '</p>';
         }
 
-        function imageTest() {
+        function putImage() {
             let container = document.createElement('div');
             document.body.appendChild(container);
             let image = document.createElement('img');
@@ -75,11 +76,31 @@
             image.style.height = 'auto';
             container.appendChild(image);
         }
+
+        function displayNationalPark() {
+            let request = new XMLHttpRequest();
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
+                    console.log(request.responseText);
+                }
+            }
+            request.open("GET","data.json", true);
+            request.send();
+
+            //const nationalParkForm = document.getElementById('NationalParkForm');
+
+        }
+
     </script>
 </head>
 
 <body>
-    <button type="button" onclick="getJSONString()">test</button>
+    <button type="button" onclick="getJSONString()">Click to display JSON data</button>
+    <div id="jsonData"></div>
+    <form id="NationalParkForm">
+        <button type="button" id="NationalParkButton" onclick="displayNationalPark()">Click to display a National
+            Park</button>
+    </form>
 </body>
 
 </html>
