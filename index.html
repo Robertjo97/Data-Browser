@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Browser</title>
+    <style>
+        img {
+            height:400px;
+            width: auto;
+        }
+    </style>
     <script>
         class NationalPark {
             name = '';
@@ -104,12 +110,40 @@
 
             const nationalParks = JSON.parse(data.responseText);
             let park = nationalParks[i];
-
-            let displayName = document.createElement('p');
-            displayName.id = "displayName";
-            displayName.innerHTML = 'Name: ' + park.name + ' National Park';
             const container = document.getElementById('NationalParkContainer');
-            container.appendChild(displayName);
+
+            let name = document.createElement('h3');
+            name.id = "name";
+            name.innerHTML = 'Name: ' + park.name + ' National Park';
+            container.appendChild(name);
+
+            let location = document.createElement('p');
+            location.id = 'location';
+            location.innerHTML = 'Location: ' + park.location;
+            container.appendChild(location);
+
+            let yearEstablished = document.createElement('p');
+            yearEstablished.id = 'yearEstablished';
+            yearEstablished.innerHTML = 'Year Established: ' + park.yearEstablished;
+            container.appendChild(yearEstablished);
+
+            let freeEntry = document.createElement('p');
+            freeEntry.id = 'freeEntry';
+            freeEntry.innerHTML = 'Free Entry: ' + park.freeEntry;
+            container.appendChild(freeEntry);
+
+            let biome = document.createElement('p');
+            biome.id = 'biome';
+            biome.innerHTML = 'Biome: ' + park.biome;
+            container.appendChild(biome);
+
+            let img = document.createElement('img');
+            img.id = 'img';
+            img.src = park.img;
+            container.appendChild(img);
+
+            let br = document.createElement('br');
+            container.appendChild(br);
 
             let previous = document.createElement('button');
             previous.innerHTML = 'Previous';
@@ -137,8 +171,19 @@
                 i = 0;
             }
             let park = nationalParks[i];
-            let displayName = document.getElementById('displayName');
-            displayName.innerHTML = park.name + ' National Park';
+            let name = document.getElementById('name');
+            let location = document.getElementById('location');
+            let yearEstablished = document.getElementById('yearEstablished');
+            let freeEntry = document.getElementById('freeEntry');
+            let biome = document.getElementById('biome');
+            let img = document.getElementById('img');
+
+            name.innerHTML = 'Name: ' + park.name + ' National Park';
+            location.innerHTML = 'Location: ' + park.location;
+            yearEstablished.innerHTML = 'Year Established: ' + park.yearEstablished;
+            freeEntry.innerHTML = 'Free Entry: ' + park.freeEntry;
+            biome.innerHTML = 'Biome: ' + park.biome;
+            img.src = park.img;
         }
 
         function previousButton(data) {
@@ -148,8 +193,19 @@
                 i = nationalParks.length - 1;
             }
             let park = nationalParks[i];
-            let displayName = document.getElementById('displayName');
-            displayName.innerHTML = park.name + ' National Park';
+            let name = document.getElementById('name');
+            let location = document.getElementById('location');
+            let yearEstablished = document.getElementById('yearEstablished');
+            let freeEntry = document.getElementById('freeEntry');
+            let biome = document.getElementById('biome');
+            let img = document.getElementById('img');
+
+            name.innerHTML = 'Name: ' + park.name + ' National Park';
+            location.innerHTML = 'Location: ' + park.location;
+            yearEstablished.innerHTML = 'Year Established: ' + park.yearEstablished;
+            freeEntry.innerHTML = 'Free Entry: ' + park.freeEntry;
+            biome.innerHTML = 'Biome: ' + park.biome;
+            img.src = park.img;
         }
 
     </script>
