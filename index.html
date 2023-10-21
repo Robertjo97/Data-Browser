@@ -93,19 +93,62 @@
         }
 
         let i = 0;
-
+        let previouslyPressed = false;
+        
         function displayNationalPark(data) {
+            if (previouslyPressed) {
+                return;
+            }
+            previouslyPressed = true;
+
             const nationalParks = JSON.parse(data.responseText);
-            if (i == nationalParks.length) {
+            let park = nationalParks[i];
+
+            let displayName = document.createElement('p');
+            displayName.id = "displayName";
+            displayName.innerHTML = 'Name: ' + park.name + ' National Park';
+            const container = document.getElementById('NationalParkContainer');
+            container.appendChild(displayName);
+
+            let previous = document.createElement('button');
+            previous.innerHTML = 'Previous';
+            previous.type = "button";
+            previous.id = 'previous';
+            previous.onclick = function() {
+                getData(previousButton);
+            }
+            container.appendChild(previous);
+            
+            let next = document.createElement('button');
+            next.innerHTML = "Next";
+            next.type = 'button';
+            next.id = 'next';
+            next.onclick = function(){ 
+                getData(nextButton);
+            }
+            container.appendChild(next);
+        }
+
+        function nextButton(data) {
+            const nationalParks = JSON.parse(data.responseText);
+            i++;
+            if(i == nationalParks.length){
                 i = 0;
             }
             let park = nationalParks[i];
-            let p = document.createElement('p');
-            p.innerHTML = 'Name: ' + park.name + ' National Park';
-            const container = document.getElementById('NationalParkForm');
-            container.innerHTML = '';
-            container.appendChild(p);
-            i++;
+            let displayName = document.getElementById('displayName');
+            displayName.innerHTML = park.name + ' National Park';
+        }
+
+        function previousButton(data) {
+            const nationalParks = JSON.parse(data.responseText);
+            i--;
+            if(i == -1){
+                i = nationalParks.length - 1;
+            }
+            let park = nationalParks[i];
+            let displayName = document.getElementById('displayName');
+            displayName.innerHTML = park.name + ' National Park';
         }
 
     </script>
@@ -116,7 +159,7 @@
     <div id="jsonData"></div>
     <button type="button" id="NationalParkButton" onclick="getData(displayNationalPark)">Click to display a National
         Park</button>
-    <div id="NationalParkForm"></div>
+    <div id="NationalParkContainer"></div>
 </body>
 
 </html>
