@@ -67,16 +67,6 @@
             document.getElementById('jsonData').innerHTML = '<p>' + x + '</p>';
         }
 
-        function putImage() {
-            let container = document.createElement('div');
-            document.body.appendChild(container);
-            let image = document.createElement('img');
-            image.src = yosemite.img;
-            image.style.width = '500px';
-            image.style.height = 'auto';
-            container.appendChild(image);
-        }
-
         function getData(callback) {
             const request = new XMLHttpRequest();
             request.onreadystatechange = function () {
