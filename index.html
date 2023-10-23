@@ -7,7 +7,7 @@
     <title>Data Browser</title>
     <style>
         img {
-            height:400px;
+            height: 400px;
             width: auto;
         }
     </style>
@@ -87,7 +87,7 @@
         let displayed = false;
         function displayJSON(data) {
             let btn = document.getElementById('jsonBtn');
-            if(!displayed){
+            if (!displayed) {
                 btn.innerHTML = "Click to hide JSON data";
                 document.getElementById('jsonData').innerHTML = '<p>' + data.responseText + '</p>';
                 displayed = true;
@@ -101,7 +101,7 @@
 
         let i = 0;
         let previouslyPressed = false;
-        
+
         function displayNationalPark(data) {
             if (previouslyPressed) {
                 return;
@@ -149,16 +149,16 @@
             previous.innerHTML = 'Previous';
             previous.type = "button";
             previous.id = 'previous';
-            previous.onclick = function() {
+            previous.onclick = function () {
                 getData(previousButton);
             }
             container.appendChild(previous);
-            
+
             let next = document.createElement('button');
             next.innerHTML = "Next";
             next.type = 'button';
             next.id = 'next';
-            next.onclick = function(){ 
+            next.onclick = function () {
                 getData(nextButton);
             }
             container.appendChild(next);
@@ -167,7 +167,7 @@
         function nextButton(data) {
             const nationalParks = JSON.parse(data.responseText);
             i++;
-            if(i == nationalParks.length){
+            if (i == nationalParks.length) {
                 i = 0;
             }
             let park = nationalParks[i];
@@ -189,7 +189,7 @@
         function previousButton(data) {
             const nationalParks = JSON.parse(data.responseText);
             i--;
-            if(i == -1){
+            if (i == -1) {
                 i = nationalParks.length - 1;
             }
             let park = nationalParks[i];
