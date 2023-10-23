@@ -12,27 +12,48 @@
         }
     </style>
     <script>
-        class NationalPark {
+        /*class NationalPark {
             name = '';
             location = '';
             yearEstablished = 0;
             freeEntry = false;
             biome = ['aquatic', 'grassland', 'forest', 'desert', 'tundra'];
             img = '';
+        }*/
+
+        class NationalPark {
+            constructor(name, location, yearEstablished, freeEntry, biome, img) {
+                const validBiomes = ['aquatic', 'grassland', 'forest', 'desert', 'tundra'];
+
+                if (!validBiomes.includes(biome)) {
+                    throw new Error('Invalid biome');
+                }
+
+                this.name = name;
+                this.location = location;
+                this.yearEstablished = yearEstablished;
+                this.freeEntry = freeEntry;
+                this.biome = biome;
+                this.img = img;
+            }
         }
+
 
         let parks = new Array();
 
-        const yosemite = new NationalPark();
+        /*const yosemite = new NationalPark();
         yosemite.name = 'Yosemite';
         yosemite.location = 'California';
         yosemite.yearEstablished = 1890;
         yosemite.freeEntry = false;
         yosemite.biome = yosemite.biome[2];
         yosemite.img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Half_Dome_from_Glacier_Point%2C_Yosemite_NP_-_Diliff.jpg/1920px-Half_Dome_from_Glacier_Point%2C_Yosemite_NP_-_Diliff.jpg';
+        parks.push(yosemite);*/
+
+        const yosemite = new NationalPark('Yosemite', 'California', 1890, false, 'forest', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Half_Dome_from_Glacier_Point%2C_Yosemite_NP_-_Diliff.jpg/1920px-Half_Dome_from_Glacier_Point%2C_Yosemite_NP_-_Diliff.jpg');
         parks.push(yosemite);
 
-        const greatSmokyMountains = new NationalPark();
+        /*const greatSmokyMountains = new NationalPark();
         greatSmokyMountains.name = 'Great Smoky Mountains';
         greatSmokyMountains.location = 'Tennessee';
         greatSmokyMountains.yearEstablished = 1934;
@@ -66,9 +87,9 @@
         rockyMountain.freeEntry = false;
         rockyMountain.biome = rockyMountain.biome[4];
         rockyMountain.img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Bierstadt_Lake%2C_Rocky_Mountain_National_Park%2C_USA.jpg/1280px-Bierstadt_Lake%2C_Rocky_Mountain_National_Park%2C_USA.jpg';
-        parks.push(rockyMountain);
+        parks.push(rockyMountain);*/
 
-        function getJSONString() {
+        function getJSONString() { //Only used to copy and paste JSON into data.json.
             let x = JSON.stringify(parks);
             document.getElementById('jsonData').innerHTML = '<p>' + x + '</p>';
         }
