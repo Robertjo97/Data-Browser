@@ -67,11 +67,6 @@ let i = 0;
 let previouslyPressed = false;
 
 function displayNationalPark(data) {
-    if (previouslyPressed) {
-        return;
-    }
-    previouslyPressed = true;
-
     const nationalParks = JSON.parse(data.responseText);
     let park = nationalParks[i];
     const container = document.getElementById('NationalParkContainer');
@@ -108,27 +103,9 @@ function displayNationalPark(data) {
 
     let br = document.createElement('br');
     container.appendChild(br);
-
-    let previous = document.createElement('button');
-    previous.innerHTML = 'Previous';
-    previous.type = "button";
-    previous.id = 'previous';
-    previous.onclick = function () {
-        getData(previousButton);
-    }
-    container.appendChild(previous);
-
-    let next = document.createElement('button');
-    next.innerHTML = "Next";
-    next.type = 'button';
-    next.id = 'next';
-    next.onclick = function () {
-        getData(nextButton);
-    }
-    container.appendChild(next);
 }
 
-function nextButton(data) {
+/*function nextButton(data) {
     const nationalParks = JSON.parse(data.responseText);
     i++;
     if (i == nationalParks.length) {
@@ -170,4 +147,17 @@ function previousButton(data) {
     freeEntry.innerHTML = 'Free Entry: ' + park.freeEntry;
     biome.innerHTML = 'Biome: ' + park.biome;
     img.src = park.img;
+}*/
+
+function phpTest(){
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if(request.readyState == 4 && request.status == 200){
+            document.getElementById('NationalParkContainer').innerHTML = request.responseText;
+        }
+    }
+    request.open('GET', './index.php', true);
+    request.send();
 }
+
+getData(displayNationalPark);
