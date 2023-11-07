@@ -49,6 +49,7 @@ function getJSONString() {
 
 let i = 0;
 let displayPressed = false;
+
 function displayNationalPark() {
     if (displayPressed) {
         document.getElementById('NationalParkContainer').innerHTML = '';
@@ -67,9 +68,15 @@ function displayNationalPark() {
             arraySize = response.size;
             const container = document.getElementById('NationalParkContainer');
 
-            let name = document.createElement('h3');
+            let label = document.createElement('label');
+            let name = document.createElement('input');
+            label.for = 'name';
+            label.innerHTML = 'Name: '
+            name.type='text';
+            name.readOnly = true;
             name.id = "name";
-            name.innerHTML = 'Name: ' + park.name + ' National Park';
+            name.value = park.name + ' National Park';
+            container.append(label);
             container.appendChild(name);
 
             let location = document.createElement('p');
@@ -97,32 +104,42 @@ function displayNationalPark() {
             img.src = park.img;
             container.appendChild(img);
 
-            let br = document.createElement('br');
-            container.appendChild(br);
+            let br1 = document.createElement('br');
+            //let br2 = document.createElement('br');
+            container.appendChild(br1);
+            //container.appendChild(br2);
 
-            let previous = document.createElement('button');
-            previous.innerHTML = 'Previous';
-            previous.type = "button";
-            previous.id = 'previous';
-            previous.onclick = function () {
-                previousButton();
-            }
-            container.appendChild(previous);
-
-            let next = document.createElement('button');
-            next.innerHTML = "Next";
-            next.type = 'button';
-            next.id = 'next';
-            next.onclick = function () {
-                nextButton();
-            }
-            container.appendChild(next);
+            createPreviousButton(container);
+            createNextButton(container);
+            createEditButton(container);
         }
     }
     request.open('POST', './index.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('index=' + i);
 
+}
+
+function createNextButton(element){
+    let next = document.createElement('button');
+    next.innerHTML = "Next";
+    next.type = 'button';
+    next.id = 'next';
+    next.onclick = function () {
+        nextButton();
+    }
+    element.appendChild(next);
+}
+
+function createPreviousButton(element){
+    let previous = document.createElement('button');
+    previous.innerHTML = 'Previous';
+    previous.type = "button";
+    previous.id = 'previous';
+    previous.onclick = function () {
+        previousButton();
+        }
+    element.appendChild(previous);
 }
 
 function nextButton() {
@@ -171,4 +188,29 @@ function previousButton() {
     request.open('POST', './index.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('index=' + i);
+}
+
+function createEditButton(element){
+    let br1 = document.createElement('br');
+    let br2 = document.createElement('br');
+    let edit = document.createElement('button');
+    edit.innerHTML = 'Edit';
+    edit.type = 'button';
+    edit.id = 'edit';
+    edit.onclick = function(){
+        editButton();
+    }
+    element.appendChild(br1);
+    element.appendChild(br2);
+    element.appendChild(edit);
+}
+
+function editButton(){
+    let name =document.getElementById('name');
+    if(name.readOnly == true){
+        name.readOnly = false;
+    }
+    else {
+        name.readOnly = true;
+    }
 }
