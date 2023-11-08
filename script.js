@@ -239,7 +239,7 @@ function editButton() {
         yearEstablished.readOnly = false;
         freeEntry.readOnly = false;
         biome.readOnly = false;
-        //make function that allows you to modify img.src
+        //make function that allows you to modify img.src 
         button.innerHTML = 'Submit';
     }
     else {
@@ -249,6 +249,9 @@ function editButton() {
         request.send('index=' + i + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntry.value + '&biome=' + biome.value + '&img=' + img.src);
         name.readOnly = true;
         location.readOnly = true;
+        yearEstablished.readOnly = true;
+        freeEntry.readOnly = true;
+        biome.readOnly = true;
         button.innerHTML = 'Edit';
     }
 }
