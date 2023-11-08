@@ -240,7 +240,7 @@ function editButton() {
         freeEntry.readOnly = false;
         biome.readOnly = false;
         //make function that allows you to modify img.src 
-        button.innerHTML = 'Submit';
+        button.innerHTML = 'Save';
     }
     else {
         let request = new XMLHttpRequest();
