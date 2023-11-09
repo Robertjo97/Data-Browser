@@ -15,18 +15,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         file_put_contents('./data.json', $writeData);
 
         $size = count($data);
-        
-        if($index >= $size){
-            $index = 0;
-        }
-        else if($index == -1){
-            $index = $size - 1;
-        }
 
-        $park = $data[$index - 1];
-        $response = array('park' => $park, 'size' => $size, 'position' => $index);
+        if($index != 0){
+            $index = $index - 1;
+        }
+        
+        $park = $data[$index];
+        $response = array('park' => $park, 'size' => $size, 'position' => $index + 1);
         echo json_encode($response);
     }
 }
-
 ?>
