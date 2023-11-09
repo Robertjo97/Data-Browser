@@ -66,6 +66,7 @@ function displayNationalPark() {
             let response = JSON.parse(request.responseText);
             park = response.park;
             arraySize = response.size;
+            position = response.position;
             const container = document.getElementById('NationalParkContainer');
 
             let nameLabel = document.createElement('label');
@@ -93,7 +94,7 @@ function displayNationalPark() {
             let yearLabel = document.createElement('label');
             yearLabel.innerHTML = 'Year Established: ';
             let yearEstablished = document.createElement('input');
-            yearEstablished.type ='text';
+            yearEstablished.type = 'text';
             yearEstablished.readOnly = true;
             yearEstablished.id = 'yearEstablished';
             yearEstablished.value = park.yearEstablished;
@@ -131,9 +132,22 @@ function displayNationalPark() {
             container.appendChild(img);
             container.appendChild(document.createElement('br'));
 
+            let positionLabel = document.createElement('label');
+            positionLabel.innerHTML = 'Position: ';
+            let displayPosition = document.createElement('input');
+            displayPosition.type = 'text';
+            displayPosition.readOnly = true;
+            displayPosition.id = 'position';
+            displayPosition.value = '(' + position + '/' + arraySize + ')';
+            container.appendChild(positionLabel);
+            container.appendChild(displayPosition);
+            container.appendChild(document.createElement('br'));
+        
+
             createPreviousButton(container);
             createNextButton(container);
             createEditButton(container);
+            createDeleteButton(container);
         }
     }
     request.open('POST', './index.php', true);
@@ -175,12 +189,14 @@ function nextButton() {
             let response = JSON.parse(request.responseText);
             let park = response.park;
             arraySize = response.size;
+            position = response.position;
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
             document.getElementById('freeEntry').value = park.freeEntry;
             document.getElementById('biome').value = park.biome;
             document.getElementById('img').src = park.img;
+            document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
         }
     }
     request.open('POST', './index.php', true);
@@ -199,12 +215,14 @@ function previousButton() {
             let response = JSON.parse(request.responseText);
             let park = response.park;
             arraySize = response.size;
+            position = response.position;
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
             document.getElementById('freeEntry').value = park.freeEntry;
             document.getElementById('biome').value = park.biome;
             document.getElementById('img').src = park.img;
+            document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
         }
     }
     request.open('POST', './index.php', true);
@@ -254,4 +272,40 @@ function editButton() {
         biome.readOnly = true;
         button.innerHTML = 'Edit';
     }
+}
+
+function createDeleteButton(element) {
+    let deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'Delete';
+    deleteButton.type = 'button';
+    deleteButton.id = 'deleteButton';
+    deleteButton.onclick = function () {
+        deleteBtn();
+    }
+    element.appendChild(document.createElement('br'));
+    element.appendChild(deleteButton);
+}
+
+function deleteBtn() {
+    let currName = document.getElementById('name').value;
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function (){
+        if(request.readyState == 4 && request.status == 200){
+            let response = JSON.parse(request.responseText);
+            let park = response.park;
+            arraySize = response.size;
+            position = response.position;
+            i = position - 1;
+            document.getElementById('name').value = park.name;
+            document.getElementById('location').value = park.location;
+            document.getElementById('yearEstablished').value = park.yearEstablished;
+            document.getElementById('freeEntry').value = park.freeEntry;
+            document.getElementById('biome').value = park.biome;
+            document.getElementById('img').src = park.img;
+            document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
+        }
+    }
+    request.open('POST', './delete.php');
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send('index=' + i);
 }
