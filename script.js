@@ -142,12 +142,13 @@ function displayNationalPark() {
             container.appendChild(positionLabel);
             container.appendChild(displayPosition);
             container.appendChild(document.createElement('br'));
-        
+
 
             createPreviousButton(container);
             createNextButton(container);
             createEditButton(container);
             createDeleteButton(container);
+            createInsertBtn(container);
         }
     }
     request.open('POST', './index.php', true);
@@ -288,8 +289,8 @@ function createDeleteButton(element) {
 
 function deleteBtn() {
     let request = new XMLHttpRequest();
-    request.onreadystatechange = function (){
-        if(request.readyState == 4 && request.status == 200){
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
             let response = JSON.parse(request.responseText);
             let park = response.park;
             arraySize = response.size;
@@ -307,4 +308,92 @@ function deleteBtn() {
     request.open('POST', './delete.php');
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('index=' + i);
+}
+
+function createInsertBtn(element) {
+    let insertButton = document.createElement('button');
+    insertButton.type = 'button';
+    insertButton.innerHTML = 'Insert';
+    insertButton.id = 'insertButton'
+    insertButton.onclick = function () {
+        insertBtn();
+    }
+    element.appendChild(document.createElement('br'));
+    element.appendChild(insertButton);
+}
+
+function insertBtn() {
+    let button = document.getElementById('insertButton');
+    let name = document.getElementById('name');
+    let location = document.getElementById('location');
+    let yearEstablished = document.getElementById('yearEstablished');
+    let freeEntry = document.getElementById('freeEntry');
+    let biome = document.getElementById('biome');
+    let img = document.getElementById('img');
+    let position = document.getElementById('position');
+    let label = document.createElement('label');
+    label.id = 'imgLabel';
+    if (button.innerHTML == 'Insert') {
+        i = arraySize;
+        arraySize++;
+        name.value = '';
+        location.value = '';
+        yearEstablished.value = '';
+        freeEntry.value = '';
+        biome.value = '';
+        img.src = '';
+        name.readOnly = false;
+        location.readOnly = false;
+        yearEstablished.readOnly = false;
+        freeEntry.readOnly = false;
+        biome.readOnly = false;
+        label.innerHTML = 'Image Link: <input type="text" id="img">';
+        img.replaceWith(label);
+        position.value = '(' + arraySize + '/' + arraySize + ')';
+        button.innerHTML = 'Save';
+    }
+    else if(button.innerHTML == 'Save'){
+        let img = document.getElementById('img');
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                //let response = JSON.parse(request.responseText);
+                let park = JSON.parse(request.responseText);
+                name.value = park.name;
+                location.value = park.location;
+                yearEstablished.value = park.yearEstablished;
+                freeEntry.value = park.freeEntry;
+                biome.value = park.biome;
+                img.src = park.img;
+                position.value = '(' + arraySize + '/' + arraySize + ')';
+            }
+        }
+        request.open('POST', './insert.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send('&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntry.value + '&biome=' + biome.value + '&img=' + img.value);
+        name.readOnly = true;
+        location.readOnly = true;
+        yearEstablished.readOnly = true;
+        freeEntry.readOnly = true;
+        biome.readOnly = true;
+        let imgLabel = document.getElementById('imgLabel');
+        let image = document.createElement('img');
+        image.id = 'img';
+        imgLabel.replaceWith(image);
+
+        button.innerHTML = 'Insert';
+    }
+}
+
+function saveInsert() {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let response = JSON.parse(request.responseText);
+            arraySize = response.size;
+            i = response.index;
+        }
+    }
+    request.open('POST', './insert.php');
+    request.send();
 }
