@@ -352,36 +352,38 @@ function insertBtn() {
         position.value = '(' + arraySize + '/' + arraySize + ')';
         button.innerHTML = 'Save';
     }
-    else if(button.innerHTML == 'Save'){
+    else if (button.innerHTML == 'Save') {
         let img = document.getElementById('img');
+
         let request = new XMLHttpRequest();
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
-                //let response = JSON.parse(request.responseText);
+        request.open('POST', './insert.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send('&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntry.value + '&biome=' + biome.value + '&img=' + img.value);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
                 let park = JSON.parse(request.responseText);
+
+                let imgLabel = document.getElementById('imgLabel');
+                let image = document.createElement('img');
+                image.id = 'img';
+                imgLabel.replaceWith(image);
+
                 name.value = park.name;
                 location.value = park.location;
                 yearEstablished.value = park.yearEstablished;
                 freeEntry.value = park.freeEntry;
                 biome.value = park.biome;
-                img.src = park.img;
+                image.src = park.img;
                 position.value = '(' + arraySize + '/' + arraySize + ')';
+
+                name.readOnly = true;
+                location.readOnly = true;
+                yearEstablished.readOnly = true;
+                freeEntry.readOnly = true;
+                biome.readOnly = true;
+                button.innerHTML = 'Insert';
             }
         }
-        request.open('POST', './insert.php');
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntry.value + '&biome=' + biome.value + '&img=' + img.value);
-        name.readOnly = true;
-        location.readOnly = true;
-        yearEstablished.readOnly = true;
-        freeEntry.readOnly = true;
-        biome.readOnly = true;
-        let imgLabel = document.getElementById('imgLabel');
-        let image = document.createElement('img');
-        image.id = 'img';
-        imgLabel.replaceWith(image);
-
-        button.innerHTML = 'Insert';
     }
 }
 
