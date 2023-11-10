@@ -1,3 +1,11 @@
+/*
+TODO:
+Disable the other buttons on certain actions like insert, edit?
+Set free entry and Biome to drop down menus
+convert to mysql
+add styling
+*/
+
 class NationalPark {
     constructor(name, location, yearEstablished, freeEntry, biome, img) {
         const validBiomes = ['aquatic', 'grassland', 'forest', 'desert', 'tundra'];
