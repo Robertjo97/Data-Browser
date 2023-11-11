@@ -1,6 +1,5 @@
 /*
 TODO:
-Disable the other buttons on certain actions like insert, edit?
 Set free entry and Biome to drop down menus
 enable changing images on edit
 convert to mysql
