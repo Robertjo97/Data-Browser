@@ -343,6 +343,12 @@ function insertBtn() {
     let label = document.createElement('label');
     label.id = 'imgLabel';
     if (button.innerHTML == 'Insert') {
+        document.getElementById('jsonBtn').disabled = true;
+        document.getElementById('NationalParkButton').disabled = true;
+        document.getElementById('previous').disabled = true;
+        document.getElementById('next').disabled = true;
+        document.getElementById('edit').disabled = true;
+        document.getElementById('deleteButton').disabled = true;
         i = arraySize;
         arraySize++;
         name.value = '';
@@ -390,7 +396,16 @@ function insertBtn() {
                 yearEstablished.readOnly = true;
                 freeEntry.readOnly = true;
                 biome.readOnly = true;
+
+                document.getElementById('jsonBtn').disabled = false;
+                document.getElementById('NationalParkButton').disabled = false;
+                document.getElementById('previous').disabled = false;
+                document.getElementById('next').disabled = false;
+                document.getElementById('edit').disabled = false;
+                document.getElementById('deleteButton').disabled = false;
+
                 button.innerHTML = 'Insert';
+
             }
         }
     }
