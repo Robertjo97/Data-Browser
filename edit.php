@@ -18,8 +18,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $index = $_POST['index'];
         $name = $_POST['name'];
         $location = $_POST['location'];
-        $yearEstablished = $_POST['yearEstablished'];
-        $freeEntry = $_POST['freeEntry'];
+        $yearEstablished = intval($_POST['yearEstablished']);
+        $freeEntry = $_POST['freeEntry'] === 'true' ? true : false;
         $biome = $_POST['biome'];
         $img = $_POST['img'];
         

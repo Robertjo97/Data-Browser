@@ -253,6 +253,7 @@ function createEditButton(element) {
 }
 
 function editButton() {
+
     let button = document.getElementById('edit');
     let name = document.getElementById('name');
     let location = document.getElementById('location');
@@ -269,23 +270,44 @@ function editButton() {
         document.getElementById('insertButton').disabled = true;
         document.getElementById('deleteButton').disabled = true;
 
+        let freeEntryMenu = document.createElement('select');
+        freeEntryMenu.id = 'freeEntryMenu';
+        let option1 = document.createElement('option');
+        option1.value = 'true';
+        option1.text = 'true';
+        let option2 = document.createElement('option');
+        option2.value = 'false';
+        option2.text = 'false';
+        freeEntryMenu.appendChild(option1);
+        freeEntryMenu.appendChild(option2);
+
         name.readOnly = false;
         location.readOnly = false;
         yearEstablished.readOnly = false;
-        freeEntry.readOnly = false;
+        freeEntryMenu.value = freeEntry.value;
+        freeEntry.replaceWith(freeEntryMenu);
         biome.readOnly = false;
         //make function that allows you to modify img.src 
         button.innerHTML = 'Save';
     }
     else {
+
+        let freeEntryMenu = document.getElementById('freeEntryMenu');
         let request = new XMLHttpRequest();
         request.open('POST', './edit.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('index=' + i + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntry.value + '&biome=' + biome.value + '&img=' + img.src);
+        request.send('index=' + i + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntryMenu.value + '&biome=' + biome.value + '&img=' + img.src);
+        
+        let freeEntryReplace = document.createElement('input');
+        freeEntryReplace.type = 'text';
+        freeEntryReplace.id = 'freeEntry';
+        freeEntryReplace.value = freeEntryMenu.value;
+        freeEntryReplace.readOnly = true;
+        freeEntryMenu.replaceWith(freeEntryReplace);
+
         name.readOnly = true;
         location.readOnly = true;
         yearEstablished.readOnly = true;
-        freeEntry.readOnly = true;
         biome.readOnly = true;
 
         document.getElementById('jsonBtn').disabled = false;
