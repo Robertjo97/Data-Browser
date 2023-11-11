@@ -262,6 +262,14 @@ function editButton() {
     let biome = document.getElementById('biome');
     let img = document.getElementById('img');
     if (button.innerHTML == 'Edit') {
+
+        document.getElementById('jsonBtn').disabled = true;
+        document.getElementById('NationalParkButton').disabled = true;
+        document.getElementById('previous').disabled = true;
+        document.getElementById('next').disabled = true;
+        document.getElementById('insertButton').disabled = true;
+        document.getElementById('deleteButton').disabled = true;
+
         name.readOnly = false;
         location.readOnly = false;
         yearEstablished.readOnly = false;
@@ -280,6 +288,14 @@ function editButton() {
         yearEstablished.readOnly = true;
         freeEntry.readOnly = true;
         biome.readOnly = true;
+
+        document.getElementById('jsonBtn').disabled = false;
+        document.getElementById('NationalParkButton').disabled = false;
+        document.getElementById('previous').disabled = false;
+        document.getElementById('next').disabled = false;
+        document.getElementById('insertButton').disabled = false;
+        document.getElementById('deleteButton').disabled = false;
+
         button.innerHTML = 'Edit';
     }
 }
