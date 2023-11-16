@@ -1,1 +1,42 @@
-[{"name":"Yosemite National Park","location":"California","yearEstablished":1890,"freeEntry":false,"biome":"forest","img":"./images/yosemite.jpg"},{"name":"Great Smoky Mountains National Park","location":"Tennessee","yearEstablished":1934,"freeEntry":true,"biome":"forest","img":"./images/smokymountains.jpg"},{"name":"Grand Canyon National Park","location":"Arizona","yearEstablished":1919,"freeEntry":false,"biome":"desert","img":"./images/grandcanyon.jpg"},{"name":"Zion National Park","location":"Utah","yearEstablished":1919,"freeEntry":false,"biome":"desert","img":"./images/zion.jpg"},{"name":"Rocky Mountain National Park","location":"Colorado","yearEstablished":1915,"freeEntry":false,"biome":"tundra","img":"./images/rockymountains.jpg"}]
+[
+    {
+        "name": "Yosemite National Park",
+        "location": "California",
+        "yearEstablished": 1890,
+        "freeEntry": false,
+        "biome": "forest",
+        "img": "./images/yosemite.jpg"
+    },
+    {
+        "name": "Great Smoky Mountains National Park",
+        "location": "Tennessee",
+        "yearEstablished": 1934,
+        "freeEntry": true,
+        "biome": "forest",
+        "img": "./images/smokymountains.jpg"
+    },
+    {
+        "name": "Grand Canyon National Park",
+        "location": "Arizona",
+        "yearEstablished": 1919,
+        "freeEntry": false,
+        "biome": "desert",
+        "img": "./images/grandcanyon.jpg"
+    },
+    {
+        "name": "Zion National Park",
+        "location": "Utah",
+        "yearEstablished": 1919,
+        "freeEntry": false,
+        "biome": "desert",
+        "img": "./images/zion.jpg"
+    },
+    {
+        "name": "Rocky Mountain National Park",
+        "location": "Colorado",
+        "yearEstablished": 1915,
+        "freeEntry": false,
+        "biome": "tundra",
+        "img": "./images/rockymountains.jpg"
+    }
+]
