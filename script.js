@@ -26,19 +26,19 @@ class NationalPark {
 let parks = new Array();
 let arraySize = 0;
 
-const yosemite = new NationalPark('Yosemite National Park', 'California', 1890, false, 'forest', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Half_Dome_from_Glacier_Point%2C_Yosemite_NP_-_Diliff.jpg/1920px-Half_Dome_from_Glacier_Point%2C_Yosemite_NP_-_Diliff.jpg');
+const yosemite = new NationalPark('Yosemite National Park', 'California', 1890, false, 'forest', './images/yosemite.jpg');
 parks.push(yosemite);
 
-const greatSmokyMountains = new NationalPark('Great Smoky Mountains National Park', 'Tennessee', 1934, true, 'forest', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Foothills_Parkway%2C_November_2018--Joye_Ardyn_Durham_%2831031302587%29.jpg/1920px-Foothills_Parkway%2C_November_2018--Joye_Ardyn_Durham_%2831031302587%29.jpg');
+const greatSmokyMountains = new NationalPark('Great Smoky Mountains National Park', 'Tennessee', 1934, true, 'forest', './images/smokymountains.jpg');
 parks.push(greatSmokyMountains);
 
-const grandCanyon = new NationalPark('Grand Canyon National Park', 'Arizona', 1919, false, 'desert', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/USA_09847_Grand_Canyon_Luca_Galuzzi_2007.jpg/1920px-USA_09847_Grand_Canyon_Luca_Galuzzi_2007.jpg');
+const grandCanyon = new NationalPark('Grand Canyon National Park', 'Arizona', 1919, false, 'desert', './images/grandcanyon.jpg');
 parks.push(grandCanyon);
 
-const zion = new NationalPark('Zion National Park', 'Utah', 1919, false, 'desert', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Angels_Landing.jpg/1280px-Angels_Landing.jpg');
+const zion = new NationalPark('Zion National Park', 'Utah', 1919, false, 'desert', './images/zion.jpg');
 parks.push(zion);
 
-const rockyMountain = new NationalPark('Rocky Mountain National Park', 'Colorado', 1915, false, 'tundra', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Bierstadt_Lake%2C_Rocky_Mountain_National_Park%2C_USA.jpg/1280px-Bierstadt_Lake%2C_Rocky_Mountain_National_Park%2C_USA.jpg');
+const rockyMountain = new NationalPark('Rocky Mountain National Park', 'Colorado', 1915, false, 'tundra', './images/rockymountains.jpg');
 parks.push(rockyMountain);
 
 let JSONPressed = false;
