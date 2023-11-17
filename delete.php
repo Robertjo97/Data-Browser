@@ -1,28 +1,28 @@
 <?php
-$rawData = file_get_contents('./data.json');
-$data = json_decode($rawData);
-$size = count($data);
-$index = null;
-$park = null;
-$writeData = null;
+$servername = "localhost";
+$username = "AdminLab11";
+$password = "4VPnroTOC6wOU3mn";
+$dbname = 'NationalParks';
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if($conn->connect_error){
+    die("Error: " . $conn->connect_error);
+}
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(isset($_POST['index'])){
-        $index = $_POST['index'];
+    if(isset($_POST['id'])){
+        $id = $_POST['id'];
 
-        array_splice($data, $index, 1);
-        $writeData = json_encode($data);
-        file_put_contents('./data.json', $writeData);
-
-        $size = count($data);
-
-        if($index != 0){
-            $index = $index - 1;
-        }
+        $sql = "DELETE FROM Parks WHERE id=$id";
+        $conn->query($sql);
         
-        $park = $data[$index];
-        $response = array('park' => $park, 'size' => $size, 'position' => $index + 1);
-        echo json_encode($response);
+        $sql = "SELECT * FROM Parks LIMIT 1 OFFSET 0";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $park = array ('id' => $row['id'], 'name' => $row['name'], 'location' => $row['location'], 'yearEstablished' => $row['yearEstablished'], 'freeEntry' => $row['freeEntry'], 'biome' => $row['biome'], 'img' => $row['imgURL']);
+        
+        echo json_encode($park);
     }
 }
 ?>

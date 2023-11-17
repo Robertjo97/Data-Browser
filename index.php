@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $sql = "SELECT * FROM Parks LIMIT 1 OFFSET $index";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
-        $park = array ('name' => $row['name'], 'location' => $row['location'], 'yearEstablished' => $row['yearEstablished'], 'freeEntry' => $row['freeEntry'], 'biome' => $row['biome'], 'img' => $row['imgURL']);
+        $park = array ('id' => $row['id'], 'name' => $row['name'], 'location' => $row['location'], 'yearEstablished' => $row['yearEstablished'], 'freeEntry' => $row['freeEntry'], 'biome' => $row['biome'], 'img' => $row['imgURL']);
         $response = array('park' => $park, 'size' => $size, 'position' => $index + 1);
         echo json_encode($response);
     }

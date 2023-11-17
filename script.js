@@ -77,6 +77,17 @@ function displayNationalPark() {
             position = response.position;
             const container = document.getElementById('NationalParkContainer');
 
+            let idLabel = document.createElement('label');
+            idLabel.innerHTML = "ID: ";
+            let id = document.createElement('input');
+            id.type = 'text';
+            id.readOnly = true;
+            id.id = "id";
+            id.value = park.id;
+            container.appendChild(idLabel);
+            container.appendChild(id);
+            container.appendChild(document.createElement('br'));
+
             let nameLabel = document.createElement('label');
             nameLabel.innerHTML = 'Name: '
             let name = document.createElement('input');
@@ -84,7 +95,7 @@ function displayNationalPark() {
             name.readOnly = true;
             name.id = "name";
             name.value = park.name;
-            container.append(nameLabel);
+            container.appendChild(nameLabel);
             container.appendChild(name);
             container.appendChild(document.createElement('br'));
 
@@ -199,6 +210,7 @@ function nextButton() {
             let park = response.park;
             arraySize = response.size;
             position = response.position;
+            document.getElementById('id').value = park.id;
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
@@ -225,6 +237,7 @@ function previousButton() {
             let park = response.park;
             arraySize = response.size;
             position = response.position;
+            document.getElementById('id').value = park.id;
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
@@ -297,7 +310,7 @@ function editButton() {
         request.open('POST', './edit.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.send('index=' + i + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntryMenu.value + '&biome=' + biome.value + '&img=' + img.src);
-        
+
         let freeEntryReplace = document.createElement('input');
         freeEntryReplace.type = 'text';
         freeEntryReplace.id = 'freeEntry';
@@ -334,14 +347,18 @@ function createDeleteButton(element) {
 }
 
 function deleteBtn() {
+    let id = document.getElementById('id').value;
     let request = new XMLHttpRequest();
+    request.open('POST', './delete.php');
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send('id=' + id);
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
-            let response = JSON.parse(request.responseText);
-            let park = response.park;
-            arraySize = response.size;
-            position = response.position;
+            let park = JSON.parse(request.responseText);
+            arraySize--;
+            position = 1;
             i = position - 1;
+            document.getElementById('id').value = park.id;
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
@@ -351,9 +368,6 @@ function deleteBtn() {
             document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
         }
     }
-    request.open('POST', './delete.php');
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send('index=' + i);
 }
 
 function createInsertBtn(element) {
