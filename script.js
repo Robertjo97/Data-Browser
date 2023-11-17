@@ -1,6 +1,5 @@
 /*
 TODO:
-Set Biome to drop down menu
 add image uploader
 enable changing images on edit
 fix forms going white on insert
@@ -117,7 +116,6 @@ function displayNationalPark() {
             container.appendChild(yearEstablished);
             container.appendChild(document.createElement('br'));
 
-            //convert this to a dropdown with true/false
             let freeLabel = document.createElement('label');
             freeLabel.innerHTML = 'Free entry: ';
             let freeEntry = document.createElement('input');
@@ -133,7 +131,6 @@ function displayNationalPark() {
             container.appendChild(freeEntry);
             container.appendChild(document.createElement('br'));
 
-            //convert this to a dropdown with the categories
             let biomeLabel = document.createElement('label');
             biomeLabel.innerHTML = 'Biome: ';
             let biome = document.createElement('input');
