@@ -4,6 +4,7 @@ convert Edit to mysql
 Set free entry and Biome to drop down menus
 add image uploader
 enable changing images on edit
+fix forms going white on insert
 */
 
 class NationalPark {
