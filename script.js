@@ -1,7 +1,6 @@
 /*
 TODO:
-convert Edit to mysql
-Set free entry and Biome to drop down menus
+Set Biome to drop down menu
 add image uploader
 enable changing images on edit
 fix forms going white on insert
@@ -303,23 +302,55 @@ function editButton() {
         freeEntryMenu.appendChild(option1);
         freeEntryMenu.appendChild(option2);
 
+        let biomeMenu = document.createElement('select');
+        biomeMenu.id = 'biomeMenu';
+        let biome1 = document.createElement('option');
+        biome1.value = 'aquatic';
+        biome1.text = 'aquatic';
+        let biome2 = document.createElement('option');
+        biome2.value = 'grassland';
+        biome2.text = 'grassland';
+        let biome3 = document.createElement('option');
+        biome3.value = 'forest';
+        biome3.text = 'forest';
+        let biome4 = document.createElement('option');
+        biome4.value = 'desert';
+        biome4.text = 'desert';
+        let biome5 = document.createElement('option');
+        biome5.value = 'tundra';
+        biome5.text = 'tundra';
+        biomeMenu.appendChild(biome1);
+        biomeMenu.appendChild(biome2);
+        biomeMenu.appendChild(biome3);
+        biomeMenu.appendChild(biome4);
+        biomeMenu.appendChild(biome5);
+
         name.readOnly = false;
         location.readOnly = false;
         yearEstablished.readOnly = false;
         freeEntryMenu.value = freeEntry.value;
         freeEntry.replaceWith(freeEntryMenu);
-        biome.readOnly = false;
+        biomeMenu.value = biome.value;
+        biome.replaceWith(biomeMenu);
         //make function that allows you to modify img.src 
         button.innerHTML = 'Save';
     }
     else {
         let id = document.getElementById('id').value;
+        let biomeMenu = document.getElementById('biomeMenu');
         let freeEntryMenu = document.getElementById('freeEntryMenu');
         let conversion = freeEntryMenu.value == 'true' ? 1 : 0;
         let request = new XMLHttpRequest();
         request.open('POST', './edit.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('id=' + id + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + conversion + '&biome=' + biome.value + '&img=' + img.src);
+        request.send('id=' + id + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + conversion + '&biome=' + biomeMenu.value + '&img=' + img.src);
+
+        let biomeMenuReplace = document.createElement('input');
+        biomeMenuReplace.type = 'text';
+        biomeMenuReplace.id = 'biome';
+        biomeMenuReplace.value = biomeMenu.value;
+        biomeMenuReplace.readOnly = true;
+        biomeMenu.replaceWith(biomeMenuReplace);
 
         let freeEntryReplace = document.createElement('input');
         freeEntryReplace.type = 'text';
@@ -331,7 +362,6 @@ function editButton() {
         name.readOnly = true;
         location.readOnly = true;
         yearEstablished.readOnly = true;
-        biome.readOnly = true;
 
         document.getElementById('jsonBtn').disabled = false;
         document.getElementById('NationalParkButton').disabled = false;
