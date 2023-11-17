@@ -34,7 +34,7 @@ label {
     font-weight: bold;
 }
 
-input {
+input, select {
     background-color: #191A19;
     width:400px;
 }

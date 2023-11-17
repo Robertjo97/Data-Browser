@@ -125,7 +125,11 @@ function displayNationalPark() {
             freeEntry.type = 'text';
             freeEntry.readOnly = true;
             freeEntry.id = 'freeEntry';
-            freeEntry.value = park.freeEntry;
+            let conversion = false;
+            if(park.freeEntry === 1){
+                conversion = true;
+            }
+            freeEntry.value = conversion;
             container.appendChild(freeLabel);
             container.appendChild(freeEntry);
             container.appendChild(document.createElement('br'));
@@ -211,7 +215,11 @@ function nextButton() {
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
-            document.getElementById('freeEntry').value = park.freeEntry;
+            let conversion = false;
+            if(park.freeEntry == 1){
+                conversion = true;
+            }
+            document.getElementById('freeEntry').value = conversion;
             document.getElementById('biome').value = park.biome;
             document.getElementById('img').src = park.img;
             document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
@@ -238,7 +246,11 @@ function previousButton() {
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
-            document.getElementById('freeEntry').value = park.freeEntry;
+            let conversion = false;
+            if(park.freeEntry == 1){
+                conversion = true;
+            }
+            document.getElementById('freeEntry').value = conversion;
             document.getElementById('biome').value = park.biome;
             document.getElementById('img').src = park.img;
             document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
@@ -359,7 +371,8 @@ function deleteBtn() {
             document.getElementById('name').value = park.name;
             document.getElementById('location').value = park.location;
             document.getElementById('yearEstablished').value = park.yearEstablished;
-            document.getElementById('freeEntry').value = park.freeEntry;
+            let conversion = park.freeEntry == 1 ? 'true' : 'false';
+            document.getElementById('freeEntry').value = conversion;
             document.getElementById('biome').value = park.biome;
             document.getElementById('img').src = park.img;
             document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
@@ -398,19 +411,32 @@ function insertBtn() {
         document.getElementById('next').disabled = true;
         document.getElementById('edit').disabled = true;
         document.getElementById('deleteButton').disabled = true;
+
+        let freeEntryMenu = document.createElement('select');
+        freeEntryMenu.id = 'freeEntryMenu';
+        let option1 = document.createElement('option');
+        option1.value = 'true';
+        option1.text = 'true';
+        let option2 = document.createElement('option');
+        option2.value = 'false';
+        option2.text = 'false';
+        freeEntryMenu.appendChild(option1);
+        freeEntryMenu.appendChild(option2);
+
         i = arraySize;
         arraySize++;
         id.value = '';
         name.value = '';
         location.value = '';
         yearEstablished.value = '';
-        freeEntry.value = '';
+        freeEntryMenu.value = '';
         biome.value = '';
         img.src = '';
         name.readOnly = false;
         location.readOnly = false;
         yearEstablished.readOnly = false;
-        freeEntry.readOnly = false;
+        freeEntry.replaceWith(freeEntryMenu);
+        freeEntryMenu.readOnly = false;
         biome.readOnly = false;
         label.innerHTML = 'Image Link: <input type="text" id="img">';
         img.replaceWith(label);
@@ -418,15 +444,25 @@ function insertBtn() {
         button.innerHTML = 'Save';
     }
     else if (button.innerHTML == 'Save') {
+        let freeEntryMenu = document.getElementById('freeEntryMenu');
+        let conversion = freeEntryMenu.value == 'true' ? 1 : 0;
+
         let img = document.getElementById('img');
 
         let request = new XMLHttpRequest();
         request.open('POST', './insert.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntry.value + '&biome=' + biome.value + '&img=' + img.value);
+        request.send('&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + conversion + '&biome=' + biome.value + '&img=' + img.value);
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
                 let park = JSON.parse(request.responseText);
+
+                let freeEntryReplace = document.createElement('input');
+                freeEntryReplace.type = 'text';
+                freeEntryReplace.id = 'freeEntry';
+                freeEntryReplace.value = freeEntryMenu.value;
+                freeEntryReplace.readOnly = true;
+                freeEntryMenu.replaceWith(freeEntryReplace);
 
                 let imgLabel = document.getElementById('imgLabel');
                 let image = document.createElement('img');
@@ -437,7 +473,8 @@ function insertBtn() {
                 name.value = park.name;
                 location.value = park.location;
                 yearEstablished.value = park.yearEstablished;
-                freeEntry.value = park.freeEntry;
+                conversion = park.freeEntry == 1 ? 'true' : 'false';
+                freeEntryReplace.value = conversion;
                 biome.value = park.biome;
                 image.src = park.img;
                 position.value = '(' + arraySize + '/' + arraySize + ')';
@@ -445,7 +482,6 @@ function insertBtn() {
                 name.readOnly = true;
                 location.readOnly = true;
                 yearEstablished.readOnly = true;
-                freeEntry.readOnly = true;
                 biome.readOnly = true;
 
                 document.getElementById('jsonBtn').disabled = false;

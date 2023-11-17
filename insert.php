@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = $_POST['name'];
         $location = $_POST['location'];
         $yearEstablished = intval($_POST['yearEstablished']);
-        $freeEntry = $_POST['freeEntry'] === 'true' ? 1 : 0;
+        $freeEntry = $_POST['freeEntry'];
         $biome = $_POST['biome'];
         $img = $_POST['img'];
 
         $stmt = $conn->prepare("INSERT INTO Parks (name, location, yearEstablished, freeEntry, biome, imgURL) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssibss", $name, $location, $yearEstablished, $freeEntry, $biome, $img);
+        $stmt->bind_param("ssiiss", $name, $location, $yearEstablished, $freeEntry, $biome, $img);
 
         if ($stmt->execute()) {
             $id = $conn->insert_id;
