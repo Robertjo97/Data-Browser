@@ -77,14 +77,10 @@ function displayNationalPark() {
             position = response.position;
             const container = document.getElementById('NationalParkContainer');
 
-            let idLabel = document.createElement('label');
-            idLabel.innerHTML = "ID: ";
             let id = document.createElement('input');
-            id.type = 'text';
-            id.readOnly = true;
+            id.type = 'hidden';
             id.id = "id";
             id.value = park.id;
-            container.appendChild(idLabel);
             container.appendChild(id);
             container.appendChild(document.createElement('br'));
 
