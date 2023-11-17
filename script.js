@@ -1,5 +1,6 @@
 /*
 TODO:
+check possible bug with id's vs index in display and next, prev funcs
 Add sorting
 add image uploader
 enable changing images on edit
