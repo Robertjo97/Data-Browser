@@ -1,9 +1,9 @@
 /*
 TODO:
-Set free entry and Biome to drop down menus
-enable changing images on edit
 convert Edit to mysql
-add styling
+Set free entry and Biome to drop down menus
+add image uploader
+enable changing images on edit
 */
 
 class NationalPark {
