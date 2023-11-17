@@ -12,8 +12,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die('Error ' . $conn->connect_error);
 }
-//already inserted first record manually so loop begins at 1
-for ($i = 1; $i < count($data); $i++) {
+for ($i = 0; $i < count($data); $i++) {
     $park = $data[$i];
     $sql = "INSERT INTO Parks (name, location, yearEstablished, freeEntry, biome, imgURL)
     VALUES ('" . $park['name'] . "', '" . $park['location'] . "', " . $park['yearEstablished'] . ", " . ($park['freeEntry'] ? 1 : 0) . ", '" . $park['biome'] . "', '" . $park['img'] . "')";
