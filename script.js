@@ -1,5 +1,6 @@
 /*
 TODO:
+Add sorting
 add image uploader
 enable changing images on edit
 fix forms going white on insert
