@@ -164,6 +164,7 @@ function displayNationalPark() {
 
             createPreviousButton(container);
             createNextButton(container);
+            createSortButton(container);
             createEditButton(container);
             createDeleteButton(container);
             createInsertBtn(container);
@@ -173,6 +174,46 @@ function displayNationalPark() {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('index=' + i);
 
+}
+
+function createSortButton(element){
+    let sort = document.createElement('button');
+    sort.innerHTML = "Sort by Alphabetical Order";
+    sort.type = 'button';
+    sort.id = 'sort';
+    sort.onclick = function(){
+        sortButton();
+    }
+    element.appendChild(sort);
+}
+
+function sortButton(){
+    let sortButton = document.getElementById('sort');
+    let request = new XMLHttpRequest();
+    let alphabetical = true;
+    if(sortButton.innerHTML == 'Sort by Alphabetical Order'){
+        request.open('POST', './sort.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send('method=' + alphabetical);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                alert(request.responseText);
+            }
+        }
+        sortButton.innerHTML = "Sort by Index";
+    }
+    else {
+        alphabetical = false;
+        request.open('POST', './sort.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send('method=' + alphabetical);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                alert(request.responseText);
+            }
+        }
+        sortButton.innerHTML = "Sort by Alphabetical Order";
+    }
 }
 
 function createNextButton(element) {
