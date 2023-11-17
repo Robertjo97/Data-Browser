@@ -2,7 +2,7 @@
 TODO:
 Set free entry and Biome to drop down menus
 enable changing images on edit
-convert to mysql
+convert Edit and Delete to mysql
 add styling
 */
 
