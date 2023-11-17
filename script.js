@@ -313,12 +313,13 @@ function editButton() {
         button.innerHTML = 'Save';
     }
     else {
-
+        let id = document.getElementById('id').value;
         let freeEntryMenu = document.getElementById('freeEntryMenu');
+        let conversion = freeEntryMenu.value == 'true' ? 1 : 0;
         let request = new XMLHttpRequest();
         request.open('POST', './edit.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('index=' + i + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + freeEntryMenu.value + '&biome=' + biome.value + '&img=' + img.src);
+        request.send('id=' + id + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + conversion + '&biome=' + biome.value + '&img=' + img.src);
 
         let freeEntryReplace = document.createElement('input');
         freeEntryReplace.type = 'text';
