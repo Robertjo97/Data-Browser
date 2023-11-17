@@ -32,7 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("ssibss", $name, $location, $yearEstablished, $freeEntry, $biome, $img);
 
         if ($stmt->execute()) {
-            $newPark = array('name' => $name, 'location' => $location, 'yearEstablished' => $yearEstablished, 'freeEntry' => $freeEntry, 'biome' => $biome, 'img' => $img);
+            $id = $conn->insert_id;
+            $newPark = array('id' => $id, 'name' => $name, 'location' => $location, 'yearEstablished' => $yearEstablished, 'freeEntry' => $freeEntry, 'biome' => $biome, 'img' => $img);
         }
         $stmt->close();
         $response = json_encode($newPark);

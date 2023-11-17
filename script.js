@@ -2,7 +2,7 @@
 TODO:
 Set free entry and Biome to drop down menus
 enable changing images on edit
-convert Edit and Delete to mysql
+convert Edit to mysql
 add styling
 */
 
@@ -383,6 +383,7 @@ function createInsertBtn(element) {
 }
 
 function insertBtn() {
+    let id = document.getElementById('id');
     let button = document.getElementById('insertButton');
     let name = document.getElementById('name');
     let location = document.getElementById('location');
@@ -402,6 +403,7 @@ function insertBtn() {
         document.getElementById('deleteButton').disabled = true;
         i = arraySize;
         arraySize++;
+        id.value = '';
         name.value = '';
         location.value = '';
         yearEstablished.value = '';
@@ -434,6 +436,7 @@ function insertBtn() {
                 image.id = 'img';
                 imgLabel.replaceWith(image);
 
+                id.value = park.id;
                 name.value = park.name;
                 location.value = park.location;
                 yearEstablished.value = park.yearEstablished;
