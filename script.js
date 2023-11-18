@@ -58,6 +58,7 @@ function getJSONString() {
 
 let i = 0;
 let displayPressed = false;
+let alphabetical = false;
 
 function displayNationalPark() {
     if (displayPressed) {
@@ -172,7 +173,7 @@ function displayNationalPark() {
     }
     request.open('POST', './index.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send('index=' + i);
+    request.send('index=' + i + '&sort=' + alphabetical);
 
 }
 
@@ -190,11 +191,11 @@ function createSortButton(element){
 function sortButton(){
     let sortButton = document.getElementById('sort');
     let request = new XMLHttpRequest();
-    let alphabetical = true;
+    alphabetical = true;
     if(sortButton.innerHTML == 'Sort by Alphabetical Order'){
-        request.open('POST', './sort.php');
+        request.open('POST', './index.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('method=' + alphabetical);
+        request.send('index=' + i + '&sort=' + alphabetical);
         request.onreadystatechange = function(){
             if(request.readyState == 4 && request.status == 200){
                 alert(request.responseText);
@@ -204,9 +205,9 @@ function sortButton(){
     }
     else {
         alphabetical = false;
-        request.open('POST', './sort.php');
+        request.open('POST', './index.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('method=' + alphabetical);
+        request.send('index=' + i + '&sort=' + alphabetical);
         request.onreadystatechange = function(){
             if(request.readyState == 4 && request.status == 200){
                 alert(request.responseText);
@@ -266,7 +267,7 @@ function nextButton() {
     }
     request.open('POST', './index.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send('index=' + i);
+    request.send('index=' + i + '&sort=' + alphabetical);
 }
 
 function previousButton() {
@@ -297,7 +298,7 @@ function previousButton() {
     }
     request.open('POST', './index.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send('index=' + i);
+    request.send('index=' + i + '&sort=' + alphabetical);
 }
 
 function createEditButton(element) {
