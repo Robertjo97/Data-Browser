@@ -177,28 +177,43 @@ function displayNationalPark() {
 
 }
 
-function createSortButton(element){
+function createSortButton(element) {
     let sort = document.createElement('button');
     sort.innerHTML = "Sort by Alphabetical Order";
     sort.type = 'button';
     sort.id = 'sort';
-    sort.onclick = function(){
+    sort.onclick = function () {
         sortButton();
     }
     element.appendChild(sort);
 }
 
-function sortButton(){
+function sortButton() {
     let sortButton = document.getElementById('sort');
     let request = new XMLHttpRequest();
     alphabetical = true;
-    if(sortButton.innerHTML == 'Sort by Alphabetical Order'){
+    if (sortButton.innerHTML == 'Sort by Alphabetical Order') {
         request.open('POST', './index.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.send('index=' + i + '&sort=' + alphabetical);
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
-                alert(request.responseText);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                let response = JSON.parse(request.responseText);
+                let park = response.park;
+                arraySize = response.size;
+                position = response.position;
+                document.getElementById('id').value = park.id;
+                document.getElementById('name').value = park.name;
+                document.getElementById('location').value = park.location;
+                document.getElementById('yearEstablished').value = park.yearEstablished;
+                let conversion = false;
+                if (park.freeEntry == 1) {
+                    conversion = true;
+                }
+                document.getElementById('freeEntry').value = conversion;
+                document.getElementById('biome').value = park.biome;
+                document.getElementById('img').src = park.img;
+                document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
             }
         }
         sortButton.innerHTML = "Sort by Index";
@@ -208,9 +223,24 @@ function sortButton(){
         request.open('POST', './index.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.send('index=' + i + '&sort=' + alphabetical);
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
-                alert(request.responseText);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                let response = JSON.parse(request.responseText);
+                let park = response.park;
+                arraySize = response.size;
+                position = response.position;
+                document.getElementById('id').value = park.id;
+                document.getElementById('name').value = park.name;
+                document.getElementById('location').value = park.location;
+                document.getElementById('yearEstablished').value = park.yearEstablished;
+                let conversion = false;
+                if (park.freeEntry == 1) {
+                    conversion = true;
+                }
+                document.getElementById('freeEntry').value = conversion;
+                document.getElementById('biome').value = park.biome;
+                document.getElementById('img').src = park.img;
+                document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
             }
         }
         sortButton.innerHTML = "Sort by Alphabetical Order";
