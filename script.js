@@ -1,7 +1,5 @@
 /*
 TODO:
-check possible bug with id's vs index in display and next, prev funcs
-Add sorting
 add image uploader
 enable changing images on edit
 fix forms going white on insert
@@ -505,24 +503,8 @@ function insertBtn() {
     let img = document.getElementById('img');
     let position = document.getElementById('position');
     let label = document.createElement('label');
-    let imageUploader = document.createElement('form');
-    imageUploader.action = "./uploadfile.php";
-    imageUploader.method = "post";
-    imageUploader.enctype = "multipart/form-data";
-    let imageInput = document.createElement('input');
-    imageInput.type = "file";
-    imageInput.name = "fileup";
-    imageInput.id = "fileup";
-    let imageBtn = document.createElement('input');
-    imageBtn.type = "submit";
-    imageBtn.value = "Upload Image";
-    imageBtn.name = "submit";
-    imageBtn.id = 'imgBtn';
-
-    imageUploader.appendChild(imageInput);
-    imageUploader.appendChild(imageBtn);
-    
     label.id = 'imgLabel';
+    
     if (button.innerHTML == 'Insert') {
         document.getElementById('jsonBtn').disabled = true;
         document.getElementById('NationalParkButton').disabled = true;
@@ -581,7 +563,8 @@ function insertBtn() {
         freeEntryMenu.readOnly = false;
         biome.replaceWith(biomeMenu);
         biomeMenu.readOnly = false;
-        img.replaceWith(imageUploader);
+        label.innerHTML = 'Image Link: <input type="text" id="img">';
+        img.replaceWith(label);
         position.value = '(' + arraySize + '/' + arraySize + ')';
         button.innerHTML = 'Save';
     }
