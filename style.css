@@ -8,7 +8,10 @@ img {
     width: auto;
 }
 
-button {
+#imgBtn {
+    width:200px;
+}
+button, #imgBtn {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -19,7 +22,7 @@ button {
     background-color: #1E5128;
 }
 
-button:hover {
+button:hover, #imgBtn:hover {
     cursor: pointer;
     background-color: #4E9F3D;
 }

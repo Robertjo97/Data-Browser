@@ -505,6 +505,23 @@ function insertBtn() {
     let img = document.getElementById('img');
     let position = document.getElementById('position');
     let label = document.createElement('label');
+    let imageUploader = document.createElement('form');
+    imageUploader.action = "./uploadfile.php";
+    imageUploader.method = "post";
+    imageUploader.enctype = "multipart/form-data";
+    let imageInput = document.createElement('input');
+    imageInput.type = "file";
+    imageInput.name = "fileup";
+    imageInput.id = "fileup";
+    let imageBtn = document.createElement('input');
+    imageBtn.type = "submit";
+    imageBtn.value = "Upload Image";
+    imageBtn.name = "submit";
+    imageBtn.id = 'imgBtn';
+
+    imageUploader.appendChild(imageInput);
+    imageUploader.appendChild(imageBtn);
+    
     label.id = 'imgLabel';
     if (button.innerHTML == 'Insert') {
         document.getElementById('jsonBtn').disabled = true;
@@ -564,8 +581,7 @@ function insertBtn() {
         freeEntryMenu.readOnly = false;
         biome.replaceWith(biomeMenu);
         biomeMenu.readOnly = false;
-        label.innerHTML = 'Image Link: <input type="text" id="img">';
-        img.replaceWith(label);
+        img.replaceWith(imageUploader);
         position.value = '(' + arraySize + '/' + arraySize + ')';
         button.innerHTML = 'Save';
     }
