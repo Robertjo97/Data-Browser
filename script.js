@@ -1,6 +1,5 @@
 /*
 TODO:
-make save buttons red on insert and edit.
 add reminer of link path on insert and edit.
 */
 
