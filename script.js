@@ -1,7 +1,7 @@
 /*
 TODO:
-make it so you can't click upload a bunch of times.
-fix forms going white on insert
+make save buttons red on insert and edit.
+add reminer of link path on insert and edit.
 */
 
 class NationalPark {
