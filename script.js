@@ -1,7 +1,6 @@
 /*
 TODO:
-add image uploader
-enable changing images on edit
+make it so you can't click upload a bunch of times.
 fix forms going white on insert
 */
 
@@ -167,12 +166,60 @@ function displayNationalPark() {
             createEditButton(container);
             createDeleteButton(container);
             createInsertBtn(container);
+            createUploadBtn(container);
         }
     }
     request.open('POST', './index.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('index=' + i + '&sort=' + alphabetical);
 
+}
+
+function createUploadBtn(element){
+    let uploadPressed = false;
+    let upload = document.createElement('button');
+    upload.innerHTML = 'Upload an image';
+    upload.type = 'button';
+    upload.id = 'upload';
+    upload.onclick = function () {
+        if(!uploadPressed){
+        uploadPressed = true;
+        uploadBtn(element);
+        }
+        else {
+            return;
+        }
+    }
+
+    element.appendChild(document.createElement('br'));
+    element.appendChild(document.createElement('br'));
+    element.appendChild(upload);
+}
+
+function uploadBtn(element){
+
+    let form = document.createElement('form');
+    form.action = './uploadfile.php';
+    form.method = 'post';
+    form.enctype = 'multipart/form-data';
+    let p = document.createElement('p');
+    p.innerHTML = 'Upload an image to the server:';
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'fileup';
+    input.id = 'fileup';
+    let btn = document.createElement('button');
+    btn.type = 'submit';
+    btn.name = 'submit';
+    btn.innerHTML = 'Submit';
+    let p2 = document.createElement('p');
+    p2.innerHTML = "Use './uploads/yourfile' when linking an image to a new insert or edit.'";
+
+    element.appendChild(form);
+    form.appendChild(p);
+    form.appendChild(input);
+    form.appendChild(btn);
+    form.appendChild(p2);
 }
 
 function createSortButton(element) {
@@ -343,7 +390,6 @@ function createEditButton(element) {
 }
 
 function editButton() {
-
     let button = document.getElementById('edit');
     let name = document.getElementById('name');
     let location = document.getElementById('location');
@@ -351,6 +397,8 @@ function editButton() {
     let freeEntry = document.getElementById('freeEntry');
     let biome = document.getElementById('biome');
     let img = document.getElementById('img');
+    let label = document.createElement('label');
+    label.id = 'imgLabel';
     if (button.innerHTML == 'Edit') {
 
         document.getElementById('jsonBtn').disabled = true;
@@ -359,6 +407,9 @@ function editButton() {
         document.getElementById('next').disabled = true;
         document.getElementById('insertButton').disabled = true;
         document.getElementById('deleteButton').disabled = true;
+        document.getElementById('sort').disabled = true;
+        document.getElementById('upload').disabled = true;
+        img.src = '';
 
         let freeEntryMenu = document.createElement('select');
         freeEntryMenu.id = 'freeEntryMenu';
@@ -401,18 +452,20 @@ function editButton() {
         freeEntry.replaceWith(freeEntryMenu);
         biomeMenu.value = biome.value;
         biome.replaceWith(biomeMenu);
-        //make function that allows you to modify img.src 
+        label.innerHTML = 'Image Link: <input type="text" id="img">';
+        img.replaceWith(label);
         button.innerHTML = 'Save';
     }
     else {
         let id = document.getElementById('id').value;
         let biomeMenu = document.getElementById('biomeMenu');
         let freeEntryMenu = document.getElementById('freeEntryMenu');
+        let img = document.getElementById('img');
         let conversion = freeEntryMenu.value == 'true' ? 1 : 0;
         let request = new XMLHttpRequest();
         request.open('POST', './edit.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send('id=' + id + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + conversion + '&biome=' + biomeMenu.value + '&img=' + img.src);
+        request.send('id=' + id + '&name=' + name.value + '&location=' + location.value + '&yearEstablished=' + yearEstablished.value + '&freeEntry=' + conversion + '&biome=' + biomeMenu.value + '&img=' + img.value);
 
         let biomeMenuReplace = document.createElement('input');
         biomeMenuReplace.type = 'text';
@@ -428,6 +481,12 @@ function editButton() {
         freeEntryReplace.readOnly = true;
         freeEntryMenu.replaceWith(freeEntryReplace);
 
+        let imgLabel = document.getElementById('imgLabel');
+        let image = document.createElement('img');
+        image.id = 'img';
+        image.src = img.value;
+        imgLabel.replaceWith(image);
+
         name.readOnly = true;
         location.readOnly = true;
         yearEstablished.readOnly = true;
@@ -438,6 +497,9 @@ function editButton() {
         document.getElementById('next').disabled = false;
         document.getElementById('insertButton').disabled = false;
         document.getElementById('deleteButton').disabled = false;
+        document.getElementById('sort').disabled = false;
+        document.getElementById('upload').disabled = false;
+        img.src = 'returned address';
 
         button.innerHTML = 'Edit';
     }
@@ -504,7 +566,7 @@ function insertBtn() {
     let position = document.getElementById('position');
     let label = document.createElement('label');
     label.id = 'imgLabel';
-    
+
     if (button.innerHTML == 'Insert') {
         document.getElementById('jsonBtn').disabled = true;
         document.getElementById('NationalParkButton').disabled = true;
@@ -512,6 +574,8 @@ function insertBtn() {
         document.getElementById('next').disabled = true;
         document.getElementById('edit').disabled = true;
         document.getElementById('deleteButton').disabled = true;
+        document.getElementById('sort').disabled = true;
+        document.getElementById('upload').disabled = true;
 
         let biomeMenu = document.createElement('select');
         biomeMenu.id = 'biomeMenu';
@@ -622,6 +686,8 @@ function insertBtn() {
                 document.getElementById('next').disabled = false;
                 document.getElementById('edit').disabled = false;
                 document.getElementById('deleteButton').disabled = false;
+                document.getElementById('sort').disabled = false;
+                document.getElementById('upload').disabled = false;
 
                 button.innerHTML = 'Insert';
 

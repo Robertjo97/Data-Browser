@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("ssiissi", $name, $location, $yearEstablished, $freeEntry, $biome, $img, $id);
         $stmt->execute();
         $stmt->close();
+
+        echo $img;
     }
 }
 $conn->close();
