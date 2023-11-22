@@ -451,7 +451,7 @@ function editButton() {
         freeEntry.replaceWith(freeEntryMenu);
         biomeMenu.value = biome.value;
         biome.replaceWith(biomeMenu);
-        label.innerHTML = 'Image Link: <input type="text" id="img">';
+        label.innerHTML = 'Image Link: <input type="text" id="img" placeholder="./uploads/yourfilenamehere">';
         img.replaceWith(label);
         button.innerHTML = 'Save';
     }
@@ -626,7 +626,7 @@ function insertBtn() {
         freeEntryMenu.readOnly = false;
         biome.replaceWith(biomeMenu);
         biomeMenu.readOnly = false;
-        label.innerHTML = 'Image Link: <input type="text" id="img">';
+        label.innerHTML = 'Image Link: <input type="text" id="img" placeholder="./uploads/yourfilenamehere">';
         img.replaceWith(label);
         position.value = '(' + arraySize + '/' + arraySize + ')';
         button.innerHTML = 'Save';
