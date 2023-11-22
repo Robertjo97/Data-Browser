@@ -1,8 +1,3 @@
-/*
-TODO:
-add reminer of link path on insert and edit.
-*/
-
 class NationalPark {
     constructor(name, location, yearEstablished, freeEntry, biome, img) {
         const validBiomes = ['aquatic', 'grassland', 'forest', 'desert', 'tundra'];
