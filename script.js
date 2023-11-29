@@ -161,12 +161,92 @@ function displayNationalPark() {
             createDeleteButton(container);
             createInsertBtn(container);
             createUploadBtn(container);
+            createFirstButton(container);
+            createLastButton(container);
         }
     }
     request.open('POST', './index.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send('index=' + i + '&sort=' + alphabetical);
 
+}
+
+function createFirstButton(element) {
+    let first = document.createElement('button');
+    first.innerHTML = 'First';
+    first.type = 'button';
+    first.id = 'first';
+    first.onclick = function () {
+        firstButton();
+    }
+    element.appendChild(first);
+}
+
+function createLastButton(element) {
+    let last = document.createElement('button');
+    last.innerHTML = 'Last';
+    last.type = 'button';
+    last.id = 'last';
+    last.onclick = function () {
+        lastButton();
+    }
+    element.appendChild(last);
+}
+
+function lastButton() {
+    i = arraySize - 1;
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let response = JSON.parse(request.responseText);
+            let park = response.park;
+            arraySize = response.size;
+            position = response.position;
+            document.getElementById('id').value = park.id;
+            document.getElementById('name').value = park.name;
+            document.getElementById('location').value = park.location;
+            document.getElementById('yearEstablished').value = park.yearEstablished;
+            let conversion = false;
+            if (park.freeEntry == 1) {
+                conversion = true;
+            }
+            document.getElementById('freeEntry').value = conversion;
+            document.getElementById('biome').value = park.biome;
+            document.getElementById('img').src = park.img;
+            document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
+        }
+    }
+    request.open('POST', './index.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send('index=' + i + '&sort=' + alphabetical);
+}
+
+function firstButton() {
+    i = 0;
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let response = JSON.parse(request.responseText);
+            let park = response.park;
+            arraySize = response.size;
+            position = response.position;
+            document.getElementById('id').value = park.id;
+            document.getElementById('name').value = park.name;
+            document.getElementById('location').value = park.location;
+            document.getElementById('yearEstablished').value = park.yearEstablished;
+            let conversion = false;
+            if (park.freeEntry == 1) {
+                conversion = true;
+            }
+            document.getElementById('freeEntry').value = conversion;
+            document.getElementById('biome').value = park.biome;
+            document.getElementById('img').src = park.img;
+            document.getElementById('position').value = '(' + position + '/' + arraySize + ')';
+        }
+    }
+    request.open('POST', './index.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send('index=' + i + '&sort=' + alphabetical);
 }
 
 function createUploadBtn(element){
