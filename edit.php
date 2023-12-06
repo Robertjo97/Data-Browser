@@ -1,9 +1,9 @@
 <?php
-$rawData = file_get_contents('./data.json');
-$data = json_decode($rawData);
-$writeData = null;
-$park = null;
-$index = null;
+$servername = "localhost";
+$username = "AdminLab11";
+$password = "4VPnroTOC6wOU3mn";
+$dbname = 'NationalParks';
+
 $name = null;
 $location = null;
 $yearEstablished = null;
@@ -11,27 +11,28 @@ $freeEntry = null;
 $biome = null;
 $img = null;
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(isset($_POST['index']) && isset($_POST['name']) && isset($_POST['location']) && isset($_POST['yearEstablished']) && isset($_POST['freeEntry']) && isset($_POST['biome']) && isset($_POST['img'])){
-        
-        //READ DATA
-        $index = $_POST['index'];
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die('Error: ' . $conn->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['location']) && isset($_POST['yearEstablished']) && isset($_POST['freeEntry']) && isset($_POST['biome']) && isset($_POST['img'])) {
+        $id = $_POST['id'];
         $name = $_POST['name'];
         $location = $_POST['location'];
-        $yearEstablished = intval($_POST['yearEstablished']);
-        $freeEntry = $_POST['freeEntry'] === 'true' ? true : false;
+        $yearEstablished = $_POST['yearEstablished'];
+        $freeEntry = $_POST['freeEntry'];
         $biome = $_POST['biome'];
         $img = $_POST['img'];
-        
-        //WRITE DATA
-        $data[$index]->name = $name;
-        $data[$index]->location = $location;
-        $data[$index]->yearEstablished = $yearEstablished;
-        $data[$index]->freeEntry = $freeEntry;
-        $data[$index]->biome = $biome;
-        $data[$index]->img = $img;
-        $writeData = json_encode($data);
-        file_put_contents('./data.json', $writeData);
+
+        $stmt = $conn->prepare("UPDATE Parks SET name = ?, location = ?, yearEstablished = ?, freeEntry = ?, biome = ?, imgURL = ? WHERE id = ?");
+        $stmt->bind_param("ssiissi", $name, $location, $yearEstablished, $freeEntry, $biome, $img, $id);
+        $stmt->execute();
+        $stmt->close();
+
+        echo $img;
     }
 }
-?>
+$conn->close();
